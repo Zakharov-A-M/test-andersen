@@ -1,16 +1,18 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Service\Customer;
-
 
 use App\Dto\Customer\CustomerDto;
 use App\Dto\Customer\CustomerSearchDto;
 use App\Entity\Customer;
 
-
 interface CustomerServiceInterface
 {
+    /**
+     * @return Customer[]
+     */
     public function getCustomers(CustomerSearchDto $customerSearchDto): array;
 
     public function getCustomer(int $id): Customer;

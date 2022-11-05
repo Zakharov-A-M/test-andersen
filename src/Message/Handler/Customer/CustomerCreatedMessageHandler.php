@@ -1,14 +1,12 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Message\Handler\Customer;
 
-
 use App\Message\Message\Customer\CustomerCreatedMessage;
 use App\Repository\CustomerRepository;
-
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
-
 
 #[AsMessageHandler]
 class CustomerCreatedMessageHandler
@@ -25,11 +23,11 @@ class CustomerCreatedMessageHandler
         $customer = $this->customerRepository->find($customerCreatedMessage->getCreatedCustomerId());
 
         echo json_encode([
-            'id'        => $customer->getId(),
+            'id' => $customer->getId(),
             'firstName' => $customer->getFirstName(),
-            'lastName'  => $customer->getLastName(),
+            'lastName' => $customer->getLastName(),
             'createdAt' => $customer->getCreatedAt(),
             'updatedAt' => $customer->getUpdatedAt(),
-        ]) . "\n";
+        ])."\n";
     }
 }

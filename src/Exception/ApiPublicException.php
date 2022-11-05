@@ -1,25 +1,20 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Exception;
-
-
-use Exception;
-use Throwable;
 
 use App\Enum\ErrorEnum;
 use App\Enum\HttpStatusEnum;
 
-
-class ApiPublicException extends Exception implements PublicExceptionInterface
+class ApiPublicException extends \Exception implements PublicExceptionInterface
 {
-    const ERROR = ErrorEnum::DEFAULT_ERROR;
-
-    const CODE = HttpStatusEnum::INTERNAL_SERVER_ERROR;
+    public const ERROR = ErrorEnum::DEFAULT_ERROR;
+    public const CODE = HttpStatusEnum::INTERNAL_SERVER_ERROR;
 
     private array $data;
 
-    public function __construct(array $data, string $message, int $code, Throwable $previous = null)
+    public function __construct(array $data, string $message, int $code, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->data = $data;
@@ -34,7 +29,7 @@ class ApiPublicException extends Exception implements PublicExceptionInterface
     {
         return [
             'error' => $this->getMessage(),
-            'data'  => $this->data,
+            'data' => $this->data,
         ];
     }
 }

@@ -1,10 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Service\Contract;
-
-
-use DateTimeImmutable;
 
 use App\Dto\Contract\ContractDto;
 use App\Dto\Contract\ContractSearchDto;
@@ -13,10 +11,8 @@ use App\Exception\NotFoundException;
 use App\Exception\ValidationException;
 use App\Repository\ContractRepository;
 use App\Service\BaseService;
-
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class ContractService extends BaseService implements ContractServiceInterface
 {
@@ -26,36 +22,29 @@ class ContractService extends BaseService implements ContractServiceInterface
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
         ContractRepository $contractRepository,
-    )
-    {
+    ) {
         parent::__construct($entityManager, $validator);
         $this->contractRepository = $contractRepository;
     }
 
     /**
-     * @param ContractSearchDto $contractSearchDto Contract search dto
-     *
-     * @return array
-     * @throws ValidationException
+     * {@inheritDoc}
      */
     public function getContracts(ContractSearchDto $contractSearchDto): array
     {
         $this->validate($contractSearchDto);
 
-        $contracts = $this->contractRepository->findBy(
+        return $this->contractRepository->findBy(
             $contractSearchDto->search,
             $contractSearchDto->order,
             $contractSearchDto->limit,
             $contractSearchDto->offset
         );
-
-        return $contracts;
     }
 
     /**
      * @param int $id Contract id
      *
-     * @return Contract
      * @throws NotFoundException
      */
     public function getContract(int $id): Contract
@@ -66,7 +55,6 @@ class ContractService extends BaseService implements ContractServiceInterface
     /**
      * @param ContractDto $contractDto Contract dto
      *
-     * @return Contract
      * @throws ValidationException
      */
     public function createContract(ContractDto $contractDto): Contract
@@ -79,21 +67,23 @@ class ContractService extends BaseService implements ContractServiceInterface
         $contract->setStartDate($contractDto->startDate);
         $contract->setFinishDate($contractDto->finishDate);
         $contract->setName($contractDto->name);
-        $contract->setCreatedAt(new DateTimeImmutable());
-        $contract->setUpdatedAt(new DateTimeImmutable());
-
-        $this->validate($contract);
+        $contract->setCreatedAt(new \DateTimeImmutable());
+        $contract->setUpdatedAt(new \DateTimeImmutable());
 
         $this->contractRepository->save($contract, true);
 
-        return  $contract;
+        return $contract;
+    }
+
+    public function testTest(ContractDto $contractDto): ContractDto
+    {
+        return $contractDto;
     }
 
     /**
      * @param int         $id          Contract id
      * @param ContractDto $contractDto Contract dto
      *
-     * @return Contract
      * @throws NotFoundException
      * @throws ValidationException
      */
@@ -107,7 +97,7 @@ class ContractService extends BaseService implements ContractServiceInterface
         $contract->setStartDate($contractDto->startDate ?? $contract->getStartDate());
         $contract->setFinishDate($contractDto->isActive ?? $contract->getFinishDate());
         $contract->setName($contractDto->name ?? $contract->getName());
-        $contract->setUpdatedAt(new DateTimeImmutable());
+        $contract->setUpdatedAt(new \DateTimeImmutable());
 
         $this->validate($contract);
         $this->entityManager->flush();
@@ -118,7 +108,6 @@ class ContractService extends BaseService implements ContractServiceInterface
     /**
      * @param int $id Contract id
      *
-     * @return bool
      * @throws NotFoundException
      */
     public function deleteContract(int $id): bool
@@ -133,7 +122,6 @@ class ContractService extends BaseService implements ContractServiceInterface
     /**
      * @param int $id Contract id
      *
-     * @return Contract
      * @throws NotFoundException
      */
     private function getContractById(int $id): Contract

@@ -1,8 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Controller\v1\Contract;
-
 
 use App\Controller\v1\BaseController;
 use App\Dto\Contract\ContractDto;
@@ -10,12 +10,10 @@ use App\Dto\Contract\ContractSearchDto;
 use App\Enum\HttpStatusEnum;
 use App\Exception\PublicExceptionInterface;
 use App\Service\Contract\ContractServiceInterface;
-
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 #[Route(path: '/v1/contracts')]
 class ContractController extends BaseController implements ContractControllerInterface
@@ -33,7 +31,7 @@ class ContractController extends BaseController implements ContractControllerInt
     {
         /** @var ContractSearchDto $contractSearchDto */
         $contractSearchDto = $request->getContent()
-            ? $this->deserialize($request->getContent(),ContractSearchDto::class)
+            ? $this->deserialize($request->getContent(), ContractSearchDto::class)
             : new ContractSearchDto();
 
         try {
@@ -64,7 +62,7 @@ class ContractController extends BaseController implements ContractControllerInt
     #[Route(path: '/', name: 'contract_store', methods: ['POST'])]
     public function createContractAction(Request $request): JsonResponse
     {
-        /** @var ContractDto $data */
+        /** @var ContractDto $contractDto */
         $contractDto = $this->deserialize($request->getContent(), ContractDto::class);
 
         try {

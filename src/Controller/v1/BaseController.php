@@ -1,21 +1,19 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Controller\v1;
 
-
 use App\Exception\PublicExceptionInterface;
-
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 class BaseController extends AbstractController
 {
-    const JSON_FORMAT = 'json';
+    public const JSON_FORMAT = 'json';
 
     protected SerializerInterface $serializer;
 
@@ -24,12 +22,14 @@ class BaseController extends AbstractController
         $this->serializer = $serializer;
     }
 
+    /**
+     * @return array<mixed>
+     */
     protected function serialize(
         mixed $data,
         string $format = self::JSON_FORMAT,
         SerializationContext $context = null
-    ): array
-    {
+    ): array {
         $serialized = $this->serializer->serialize($data, $format, $context);
 
         return json_decode($serialized, true);
@@ -40,8 +40,7 @@ class BaseController extends AbstractController
         string $type,
         string $format = self::JSON_FORMAT,
         DeserializationContext $context = null
-    ): mixed
-    {
+    ): mixed {
         $deserialized = $this->serializer->deserialize($data, $type, $format, $context);
 
         return $deserialized;
@@ -55,11 +54,11 @@ class BaseController extends AbstractController
         );
     }
 
-    protected function json($data, int $status = 200, array $headers = [], array $context = []): JsonResponse
+    protected function json(mixed $data, int $status = 200, array $headers = [], array $context = []): JsonResponse
     {
         $data = [
             'success' => $status < 400,
-            'data'    => $data
+            'data' => $data,
         ];
 
         return parent::json($data, $status, $headers, $context);
