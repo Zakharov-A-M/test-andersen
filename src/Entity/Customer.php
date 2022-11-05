@@ -39,9 +39,16 @@ class Customer implements ValidatableInterface
     #[Type(values: ['value' => "DateTimeImmutable<'Y-m-d H:i:s'>"])]
     private \DateTimeImmutable $updatedAt;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getFirstName(): string

@@ -6,7 +6,7 @@ namespace App\Exception;
 
 use App\Enum\ErrorEnum;
 use App\Enum\HttpStatusEnum;
-use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ValidationException extends \Exception implements PublicExceptionInterface
 {
@@ -14,17 +14,17 @@ class ValidationException extends \Exception implements PublicExceptionInterface
 
     public const CODE = HttpStatusEnum::UNPROCESSABLE_ENTITY;
 
-    private ConstraintViolationList $errors;
+    private ConstraintViolationListInterface $errors;
 
-    public function __construct(ConstraintViolationList $errors, string $message, int $code, \Throwable $previous = null)
+    public function __construct(ConstraintViolationListInterface $errors, string $message, int $code, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->errors = $errors;
     }
 
-    public static function create(ConstraintViolationList $errors): static
+    public static function create(ConstraintViolationListInterface $errors): self
     {
-        return new static($errors, static::ERROR->name, static::CODE->value);
+        return new self($errors, static::ERROR->name, static::CODE->value);
     }
 
     public function getData(): array

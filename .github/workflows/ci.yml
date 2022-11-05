@@ -38,6 +38,9 @@ jobs:
       - name: PHP-CS-Fixer
         run: vendor/bin/php-cs-fixer fix --dry-run --diff
 
+      - name: PHP-Stan
+        run: vendor/bin/phpstan analyse src tests
+
       - name: Create Database
         run: |
           mkdir -p data

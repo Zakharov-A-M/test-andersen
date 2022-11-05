@@ -20,9 +20,9 @@ class ApiPublicException extends \Exception implements PublicExceptionInterface
         $this->data = $data;
     }
 
-    public static function create(array $data): static
+    public static function create(array $data): self
     {
-        return new static($data, static::ERROR->name, static::CODE->value);
+        return new self($data, static::ERROR->name, static::CODE->value);
     }
 
     public function getData(): array
