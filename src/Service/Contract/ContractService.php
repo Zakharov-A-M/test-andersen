@@ -35,7 +35,6 @@ class ContractService extends BaseService implements ContractServiceInterface
         $this->validate($contractSearchDto);
 
         return $this->contractRepository->findBy(
-            $contractSearchDto->search,
             $contractSearchDto->order,
             $contractSearchDto->limit,
             $contractSearchDto->offset
