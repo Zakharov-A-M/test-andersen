@@ -1,8 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Controller\v1\Customer;
-
 
 use App\Controller\v1\BaseController;
 use App\Dto\Customer\CustomerDto;
@@ -10,12 +10,10 @@ use App\Dto\Customer\CustomerSearchDto;
 use App\Enum\HttpStatusEnum;
 use App\Exception\PublicExceptionInterface;
 use App\Service\Customer\CustomerServiceInterface;
-
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 #[Route(path: '/v1/customers')]
 class CustomerController extends BaseController implements CustomerControllerInterface
@@ -33,7 +31,7 @@ class CustomerController extends BaseController implements CustomerControllerInt
     {
         /** @var CustomerSearchDto $customerSearchDto */
         $customerSearchDto = $request->getContent()
-            ? $this->deserialize($request->getContent(),CustomerSearchDto::class)
+            ? $this->deserialize($request->getContent(), CustomerSearchDto::class)
             : new CustomerSearchDto();
 
         try {
@@ -64,7 +62,7 @@ class CustomerController extends BaseController implements CustomerControllerInt
     #[Route(path: '/', name: 'customer_store', methods: ['POST'])]
     public function createCustomerAction(Request $request): JsonResponse
     {
-        /** @var CustomerDto $data */
+        /** @var CustomerDto $customerDto */
         $customerDto = $this->deserialize($request->getContent(), CustomerDto::class);
 
         try {

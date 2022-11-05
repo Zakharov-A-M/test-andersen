@@ -1,16 +1,21 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Service\Contract;
-
 
 use App\Dto\Contract\ContractDto;
 use App\Dto\Contract\ContractSearchDto;
 use App\Entity\Contract;
-
+use App\Exception\ValidationException;
 
 interface ContractServiceInterface
 {
+    /**
+     * @return Contract[]
+     *
+     * @throws ValidationException
+     */
     public function getContracts(ContractSearchDto $contractSearchDto): array;
 
     public function getContract(int $id): Contract;

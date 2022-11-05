@@ -1,27 +1,22 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Exception;
 
-
-use Exception;
-use Throwable;
-
 use App\Enum\ErrorEnum;
 use App\Enum\HttpStatusEnum;
-
 use Symfony\Component\Validator\ConstraintViolationList;
 
-
-class ValidationException extends Exception implements PublicExceptionInterface
+class ValidationException extends \Exception implements PublicExceptionInterface
 {
-    const ERROR = ErrorEnum::VALIDATION_ERROR;
+    public const ERROR = ErrorEnum::VALIDATION_ERROR;
 
-    const CODE = HttpStatusEnum::UNPROCESSABLE_ENTITY;
+    public const CODE = HttpStatusEnum::UNPROCESSABLE_ENTITY;
 
     private ConstraintViolationList $errors;
 
-    public function __construct(ConstraintViolationList $errors, string $message, int $code, Throwable $previous = null)
+    public function __construct(ConstraintViolationList $errors, string $message, int $code, \Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->errors = $errors;
@@ -42,7 +37,7 @@ class ValidationException extends Exception implements PublicExceptionInterface
 
         return [
             'error' => $this->getMessage(),
-            'data'  => $errors,
+            'data' => $errors,
         ];
     }
 }

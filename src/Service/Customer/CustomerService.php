@@ -1,9 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Service\Customer;
-
-use DateTimeImmutable;
 
 use App\Dto\Customer\CustomerDto;
 use App\Dto\Customer\CustomerSearchDto;
@@ -13,11 +12,9 @@ use App\Exception\ValidationException;
 use App\Message\Message\Customer\CustomerCreatedMessage;
 use App\Repository\CustomerRepository;
 use App\Service\BaseService;
-
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class CustomerService extends BaseService implements CustomerServiceInterface
 {
@@ -30,17 +27,15 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         ValidatorInterface $validator,
         CustomerRepository $customerRepository,
         MessageBusInterface $messageBus,
-    )
-    {
+    ) {
         parent::__construct($entityManager, $validator);
         $this->customerRepository = $customerRepository;
-        $this->messageBus         = $messageBus;
+        $this->messageBus = $messageBus;
     }
 
     /**
      * @param CustomerSearchDto $customerSearchDto Customer search dto
      *
-     * @return array
      * @throws ValidationException
      */
     public function getCustomers(CustomerSearchDto $customerSearchDto): array
@@ -60,7 +55,6 @@ class CustomerService extends BaseService implements CustomerServiceInterface
     /**
      * @param int $id Customer id
      *
-     * @return Customer
      * @throws NotFoundException
      */
     public function getCustomer(int $id): Customer
@@ -71,7 +65,6 @@ class CustomerService extends BaseService implements CustomerServiceInterface
     /**
      * @param CustomerDto $customerDto Customer dto
      *
-     * @return Customer
      * @throws ValidationException
      */
     public function createCustomer(CustomerDto $customerDto): Customer
@@ -80,8 +73,8 @@ class CustomerService extends BaseService implements CustomerServiceInterface
 
         $customer->setFirstName($customerDto->firstName);
         $customer->setLastName($customerDto->lastName);
-        $customer->setCreatedAt(new DateTimeImmutable());
-        $customer->setUpdatedAt(new DateTimeImmutable());
+        $customer->setCreatedAt(new \DateTimeImmutable());
+        $customer->setUpdatedAt(new \DateTimeImmutable());
 
         $this->validate($customer);
 
@@ -95,7 +88,6 @@ class CustomerService extends BaseService implements CustomerServiceInterface
      * @param int         $id          Customer id
      * @param CustomerDto $customerDto Customer dto
      *
-     * @return Customer
      * @throws NotFoundException
      * @throws ValidationException
      */
@@ -106,7 +98,7 @@ class CustomerService extends BaseService implements CustomerServiceInterface
         $customer->setFirstName($customerDto->firstName ?? $customer->getFirstName());
         $customer->setLastName($customerDto->lastName ?? $customer->getLastName());
         $customer->setIsActive($customerDto->isActive ?? $customer->isActive());
-        $customer->setUpdatedAt(new DateTimeImmutable());
+        $customer->setUpdatedAt(new \DateTimeImmutable());
 
         $this->validate($customer);
         $this->entityManager->flush();
@@ -117,7 +109,6 @@ class CustomerService extends BaseService implements CustomerServiceInterface
     /**
      * @param int $id Customer id
      *
-     * @return bool
      * @throws NotFoundException
      */
     public function deleteCustomer(int $id): bool
@@ -132,7 +123,6 @@ class CustomerService extends BaseService implements CustomerServiceInterface
     /**
      * @param int $id Customer id
      *
-     * @return Customer
      * @throws NotFoundException
      */
     private function getCustomerById(int $id): Customer

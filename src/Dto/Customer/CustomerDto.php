@@ -1,13 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Dto\Customer;
 
-
-use DateTimeImmutable;
-
 use App\Service\Validation\ValidatableInterface;
-
 
 class CustomerDto implements ValidatableInterface
 {
@@ -17,7 +14,7 @@ class CustomerDto implements ValidatableInterface
 
     public bool $isActive;
 
-    public DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
-    public DateTimeImmutable $updatedAt;
+    public \DateTimeImmutable $updatedAt;
 }

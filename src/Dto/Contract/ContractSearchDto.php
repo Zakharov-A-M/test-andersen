@@ -1,14 +1,12 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace App\Dto\Contract;
 
-
 use App\Service\Validation\ValidatableInterface;
-
 use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 class ContractSearchDto implements ValidatableInterface
 {
