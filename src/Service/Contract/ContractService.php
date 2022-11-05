@@ -18,8 +18,6 @@ class ContractService extends BaseService implements ContractServiceInterface
 {
     private ContractRepository $contractRepository;
 
-
-
     public function __construct(
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
