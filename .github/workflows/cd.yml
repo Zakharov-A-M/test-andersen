@@ -41,7 +41,12 @@ jobs:
           envkey_APP_ENV: prod
           envkey_APP_DEBUG: false
           envkey_APP_SECRET: ${{ secrets.APP_SECRET }}
-          file_name: .env
+          envkey_MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          envkey_MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          envkey_MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          envkey_MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          envkey_DATABASE_URL: mysql://${{ secrets.MYSQL_USER }}:${{ secrets.MYSQL_PASSWORD }}@erp-mysql:3306/${{ secrets.MYSQL_DATABASE }}?serverVersion=8&charset=utf8mb4
+          file_name: .env.prod
       # Copying files and artifacts via SSH
       - name: Copying files to server
         uses: appleboy/scp-action@master
