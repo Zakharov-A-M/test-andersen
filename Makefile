@@ -4,7 +4,7 @@ EXEC?=$(DOCKER_COMPOSE) exec php-fpm
 COMPOSER=$(EXEC) composer
 
 start: build up clear vendor db
-start-prod: build-prod up clear db
+start-prod: build-prod up-prod clear db
 
 build:
 	$(DOCKER_COMPOSE) stop
@@ -18,6 +18,9 @@ build-prod:
 
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
+
+up-prod:
+    $(DOCKER_COMPOSE_PROD) up -d --remove-orphans
 
 clear:
 	-$(EXEC) bin/console cache:clear
