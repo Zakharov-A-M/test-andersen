@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     librabbitmq-dev \
-    php8.1-sqlite \
+    php8.1-sqlite3 \
     zip
 
 RUN docker-php-ext-install pdo pdo_mysql mbstring
