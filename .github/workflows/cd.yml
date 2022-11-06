@@ -63,4 +63,4 @@ jobs:
           passphrase: ''
           script: |
             rsync -a --exclude={'var','temp'} --delete ${{ secrets.REMOTE_DIR }} ${{ secrets.REMOTE_TARGET_DEPLOY }}
-            cd ${{ secrets.REMOTE_DIR }} && php bin/console cache:clear
+            cd ${{ secrets.REMOTE_DIR }} && make start
