@@ -49,7 +49,7 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
+          passphrase: ''
           rm: true
           source: "./"
           target: ${{ secrets.REMOTE_DIR }}
@@ -60,5 +60,5 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
+          passphrase: ''
           script: rsync -a --exclude={'var','temp'} --delete ${{ secrets.REMOTE_DIR }} ${{ secrets.REMOTE_DIR }}
