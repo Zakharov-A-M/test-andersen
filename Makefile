@@ -5,6 +5,7 @@ COMPOSER=$(EXEC) composer
 start: build up clear db
 
 build:
+	$(DOCKER_COMPOSE) stop
 	$(DOCKER_COMPOSE) pull --ignore-pull-failures
 	$(DOCKER_COMPOSE) build --force-rm --pull
 
@@ -18,4 +19,4 @@ vendor:
 	$(COMPOSER) install
 
 db: vendor
-	-$(EXEC) php bin/console doctrine:migrations:migrate
+	-$(EXEC) php bin/console --no-interaction doctrine:migrations:migrate
