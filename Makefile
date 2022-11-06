@@ -20,7 +20,7 @@ up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 
 up-prod:
-    $(DOCKER_COMPOSE_PROD) up -d --remove-orphans
+	$(DOCKER_COMPOSE_PROD) up -d --remove-orphans
 
 clear:
 	-$(EXEC) bin/console cache:clear
