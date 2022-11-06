@@ -18,11 +18,6 @@ build:
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 
-build-prod:
-	$(DOCKER_COMPOSE_PROD) stop
-	$(DOCKER_COMPOSE_PROD) pull --ignore-pull-failures
-	$(DOCKER_COMPOSE_PROD) build --force-rm --pull
-
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 
