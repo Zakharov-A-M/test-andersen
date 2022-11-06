@@ -33,7 +33,7 @@ build-prod:
 	$(DOCKER_COMPOSE_PROD) pull --ignore-pull-failures
 	$(DOCKER_COMPOSE_PROD) build --force-rm --pull
 	$(DOCKER_COMPOSE_PROD) up -d --remove-orphans
-	-$(EXEC_PROD) bin/console cache:clear
+	$(EXEC_PROD) bin/console cache:clear
 
 vendor-prod:
 	$(COMPOSER_PROD) install
