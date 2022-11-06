@@ -35,7 +35,7 @@ build-prod:
 	$(DOCKER_COMPOSE) build --force-rm --pull
 
 up-prod:
-    $(DOCKER_COMPOSE_PROD) up -d --remove-orphans
+	$(DOCKER_COMPOSE) up -d --remove-orphans
 
 clear-prod:
 	-$(EXEC_PROD) bin/console cache:clear
