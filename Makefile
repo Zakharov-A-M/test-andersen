@@ -7,7 +7,7 @@ EXEC_PROD?=$(DOCKER_COMPOSE_PROD) exec php-fpm
 COMPOSER_PROD=$(EXEC_PROD) composer
 
 start: build up clear vendor db
-start-prod: build-prod db-prod
+start-prod: build-prod clear-prod db-prod
 
 # Local
 build:
@@ -33,7 +33,12 @@ build-prod:
 	$(DOCKER_COMPOSE_PROD) pull --ignore-pull-failures
 	$(DOCKER_COMPOSE_PROD) build --force-rm --pull
 	$(DOCKER_COMPOSE_PROD) up -d --remove-orphans
-	$(EXEC_PROD) bin/console cache:clear
+
+wait-for-clear:
+	$(EXEC_PROD) php -r "set_time_limit(60);for(;;){if(@fsockopen('erp-php-fpm',9000)){echo \"db ready\n\"; break;}echo \"Waiting for db\n\";sleep(1);}"
+
+clear-prod: wait-for-clear
+	-$(EXEC_PROD) bin/console cache:clear
 
 vendor-prod:
 	$(COMPOSER_PROD) install
