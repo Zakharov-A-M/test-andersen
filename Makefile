@@ -1,9 +1,9 @@
 DOCKER_COMPOSE?=docker-compose
-DOCKER_COMPOSE_PROD?=docker-compose -f docker-compose.prod.yml
+DOCKER_COMPOSE_PROD?=docker-compose -f docker-compose.prod.yaml
 EXEC?=$(DOCKER_COMPOSE) exec php-fpm
 COMPOSER=$(EXEC) composer
 
-start: build up clear db
+start: build up clear vendor db
 start-prod: build-prod up clear db
 
 build:
