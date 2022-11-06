@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use LogicException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -19,7 +18,7 @@ abstract class DatabaseTestCase extends KernelTestCase
         $kernel = self::bootKernel();
 
         if ('test' !== $kernel->getEnvironment()) {
-            throw new LogicException('Execution only in Test environment possible!');
+            throw new \LogicException('Execution only in Test environment possible!');
         }
 
         $this->initDatabase($kernel);

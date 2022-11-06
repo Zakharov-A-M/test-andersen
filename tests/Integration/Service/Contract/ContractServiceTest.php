@@ -3,9 +3,8 @@
 namespace App\Tests\Integration\Service\Contract;
 
 use App\Dto\Contract\ContractDto;
-use App\Tests\Integration\DatabaseTestCase;
-
 use App\Service\Contract\ContractService;
+use App\Tests\Integration\DatabaseTestCase;
 
 class ContractServiceTest extends DatabaseTestCase
 {
