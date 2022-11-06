@@ -2,6 +2,7 @@ name: SSH Deploy
 on:
   push:
     branches: [ "main" ]
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -69,4 +70,4 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           passphrase: ''
           script: |
-            cd ${{ secrets.REMOTE_DIR }} && make start
+            cd ${{ secrets.REMOTE_DIR }} && make start-prod

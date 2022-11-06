@@ -1,0 +1,61 @@
+version: '3.0'
+
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./:/var/www/erp
+    container_name: ${PROJECT_NAME}-nginx
+    restart: always
+    networks:
+      - erp
+    ports:
+      - '80:80'
+
+  php-fpm:
+    build:
+      args:
+        user: erp
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/php-fpm/Dockerfile
+    volumes:
+      - ./:/var/www/erp
+    container_name: ${PROJECT_NAME}-php-fpm
+    networks:
+      - erp
+    depends_on:
+      - mysql
+    environment:
+      - PHP_IDE_CONFIG=serverName=${PROJECT_NAME}
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - '5672:15672'
+    networks:
+      - erp
+
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql:/var/lib/mysql
+    container_name: ${PROJECT_NAME}-mysql
+    restart: always
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+    networks:
+      - erp
+    ports:
+      - '3307:3306'
+
+volumes:
+  mysql:
+
+networks:
+  erp:
