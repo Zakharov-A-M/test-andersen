@@ -15,10 +15,7 @@ clear:
 	-$(EXEC) bin/console cache:clear
 
 vendor:
-	$(COMPOSER) install -n
+	$(COMPOSER) install
 
-wait-for-db:
-	$(EXEC) php -r "set_time_limit(60);for(;;){if(@fsockopen('mysql',3306)){echo \"db ready\n\"; break;}echo \"Waiting for db\n\";sleep(1);}"
-
-db: vendor wait-for-db
+db: vendor
 	-$(EXEC) php bin/console doctrine:migrations:migrate
