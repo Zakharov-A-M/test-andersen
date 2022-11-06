@@ -7,7 +7,7 @@ EXEC_PROD?=$(DOCKER_COMPOSE_PROD) exec php-fpm
 COMPOSER_PROD=$(EXEC_PROD) composer
 
 start: build up clear vendor db
-start-prod: build-prod clear-prod db-prod
+start-prod: build-prod db-prod
 
 # Local
 build:
@@ -34,10 +34,7 @@ build-prod:
 	$(DOCKER_COMPOSE_PROD) build --force-rm --pull
 	$(DOCKER_COMPOSE_PROD) up -d --remove-orphans
 
-wait-for-clear:
-	$(EXEC_PROD) php -r "set_time_limit(60);for(;;){if(@fsockopen('erp-php-fpm',9000)){echo \"db ready\n\"; break;}echo \"Waiting for db\n\";sleep(1);}"
-
-clear-prod: wait-for-clear
+clear-prod:
 	-$(EXEC_PROD) bin/console cache:clear
 
 vendor-prod:
@@ -46,5 +43,5 @@ vendor-prod:
 wait-for-db:
 	$(EXEC_PROD) php -r "set_time_limit(60);for(;;){if(@fsockopen('mysql',3306)){echo \"db ready\n\"; break;}echo \"Waiting for db\n\";sleep(1);}"
 
-db-prod: wait-for-db
+db-prod: clear-prod wait-for-db
 	-$(EXEC_PROD) php bin/console --no-interaction doctrine:migrations:migrate
