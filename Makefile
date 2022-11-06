@@ -42,5 +42,8 @@ clear-prod:
 vendor-prod:
 	$(COMPOSER_PROD) install
 
-db-prod:
+wait-for-db:
+	$(EXEC) php -r "set_time_limit(60);for(;;){if(@fsockopen('mysql',3306)){echo \"db ready\n\"; break;}echo \"Waiting for db\n\";sleep(1);}"
+
+db-prod: wait-for-db
 	-$(EXEC_PROD) php bin/console --no-interaction doctrine:migrations:migrate
