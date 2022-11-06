@@ -30,9 +30,9 @@ db:
 
 # Prod
 build-prod:
-	$(DOCKER_COMPOSE_PROD) stop
-    $(DOCKER_COMPOSE_PROD) pull --ignore-pull-failures
-    $(DOCKER_COMPOSE_PROD) build --force-rm --pull
+	$(DOCKER_COMPOSE) stop
+	$(DOCKER_COMPOSE) pull --ignore-pull-failures
+	$(DOCKER_COMPOSE) build --force-rm --pull
 
 up-prod:
     $(DOCKER_COMPOSE_PROD) up -d --remove-orphans
