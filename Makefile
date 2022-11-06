@@ -1,13 +1,14 @@
 DOCKER_COMPOSE?=docker-compose
-EXEC?=$(DOCKER_COMPOSE) exec erp-php-fpm
+EXEC?=$(DOCKER_COMPOSE) exec php-fpm
 COMPOSER=$(EXEC) composer
 
 DOCKER_COMPOSE_PROD?=$(DOCKER_COMPOSE) -f docker-compose.prod.yaml
-EXEC_PROD?=$(DOCKER_COMPOSE_PROD) exec erp-php-fpm
+EXEC_PROD?=$(DOCKER_COMPOSE_PROD) exec php-fpm
 COMPOSER_PROD=$(EXEC_PROD) composer
 
 start: build up clear vendor db
-start-prod: build-prod clear-prod db-prod
+start-prod: build-prod
+clear-and-db: clear-prod db-prod
 
 # Local
 build:
