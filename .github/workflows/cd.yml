@@ -48,7 +48,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
           passphrase: ''
           rm: true
           source: "./"
@@ -59,7 +59,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
           passphrase: ''
           script: |
             rsync -a --exclude={'var','temp'} --delete ${{ secrets.REMOTE_DIR }} ${{ secrets.REMOTE_TARGET_DEPLOY }}
