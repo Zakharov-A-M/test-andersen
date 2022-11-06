@@ -18,7 +18,7 @@ class ContractControllerTest extends DatabaseApiTestCase
             ->setFinishDate((new \DateTimeImmutable())->setTimestamp(123456789));
 
         $this->client->request('POST', '/v1/contracts/', [], [], [], $this->getRequestBody($contractDto));
-        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
 
         $content = json_decode($this->client->getResponse()->getContent(), true);
         self::assertTrue($content['success']);
