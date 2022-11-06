@@ -18,9 +18,6 @@ build:
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 
-up:
-	$(DOCKER_COMPOSE) up -d --remove-orphans
-
 clear:
 	-$(EXEC) bin/console cache:clear
 
