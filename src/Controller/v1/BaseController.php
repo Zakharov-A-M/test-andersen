@@ -41,9 +41,7 @@ class BaseController extends AbstractController
         string $format = self::JSON_FORMAT,
         DeserializationContext $context = null
     ): mixed {
-        $deserialized = $this->serializer->deserialize($data, $type, $format, $context);
-
-        return $deserialized;
+        return $this->serializer->deserialize($data, $type, $format, $context);
     }
 
     protected function handleException(PublicExceptionInterface $e): JsonResponse
