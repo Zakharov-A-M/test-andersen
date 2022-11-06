@@ -4,6 +4,7 @@ COPY ./docker/php-fpm/php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 
 RUN apt-get update && apt-get install -y \
     curl \
+    sqlite3 \
     libpq-dev \
     libonig-dev \
     wget \
@@ -12,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     librabbitmq-dev \
+    php8.1-sqlite \
     zip
 
 RUN docker-php-ext-install pdo pdo_mysql mbstring
