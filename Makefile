@@ -18,5 +18,5 @@ clear:
 vendor:
 	$(COMPOSER) install
 
-db: vendor
+db:
 	-$(EXEC) php bin/console --no-interaction doctrine:migrations:migrate
