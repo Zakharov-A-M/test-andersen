@@ -7,7 +7,7 @@ EXEC_PROD?=$(DOCKER_COMPOSE_PROD) exec php-fpm
 COMPOSER_PROD=$(EXEC_PROD) composer
 
 start: build up clear vendor db
-start-prod: build-prod clear-prod db-prod
+start-prod: build-prod db-prod
 
 # Local
 build:
@@ -33,8 +33,6 @@ build-prod:
 	$(DOCKER_COMPOSE_PROD) pull --ignore-pull-failures
 	$(DOCKER_COMPOSE_PROD) build --force-rm --pull
 	$(DOCKER_COMPOSE_PROD) up -d --remove-orphans
-
-clear-prod:
 	-$(EXEC_PROD) bin/console cache:clear
 
 vendor-prod:
