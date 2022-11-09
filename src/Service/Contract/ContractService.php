@@ -129,7 +129,7 @@ class ContractService extends BaseService implements ContractServiceInterface
         $contract = $this->contractRepository->find($id);
 
         if (!$contract) {
-            throw NotFoundException::create(["Contract with 'id' = $id is not found."]);
+            return null;
         }
 
         return $contract;
