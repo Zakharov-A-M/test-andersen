@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Controller\v1;
 
@@ -16,6 +16,10 @@ class BaseController extends AbstractController
     public const JSON_FORMAT = 'json';
 
     protected SerializerInterface $serializer;
+
+
+
+
 
     public function __construct(SerializerInterface $serializer)
     {
