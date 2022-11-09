@@ -23,7 +23,7 @@ class ContractControllerTest extends DatabaseApiTestCase
         $content = json_decode($this->client->getResponse()->getContent(), true);
         self::assertTrue($content['success']);
         self::assertEquals($content['data']['number'], $contractDto->number);
-        self::assertEquals($content['data']['name'], $contractDto->name);
+        self::assertEquals($content['data']['name'], 'test broken');
         self::assertEquals($content['data']['start_date'], $contractDto->startDate->format('Y-m-d'));
         self::assertEquals($content['data']['finish_date'], $contractDto->finishDate->format('Y-m-d'));
     }
