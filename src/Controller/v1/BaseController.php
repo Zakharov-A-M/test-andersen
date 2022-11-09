@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\Controller\v1;
 
@@ -13,8 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BaseController extends AbstractController
 {
-    public const JSON_FORMAT
-        = 'json';
+    public const JSON_FORMAT = 'json';
 
     protected SerializerInterface $serializer;
 
