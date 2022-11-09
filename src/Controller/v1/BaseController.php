@@ -13,9 +13,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BaseController extends AbstractController
 {
-    public const JSON_FORMAT = 'json';
+    public const JSON_FORMAT
+        = 'json';
 
     protected SerializerInterface $serializer;
+
+
+
+
 
     public function __construct(SerializerInterface $serializer)
     {
