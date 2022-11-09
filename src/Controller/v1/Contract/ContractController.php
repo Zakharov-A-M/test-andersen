@@ -45,6 +45,20 @@ class ContractController extends BaseController implements ContractControllerInt
         return $this->json($contracts);
     }
 
+    #[Route(path: '/{id}', name: 'contract_show', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function getContractAction(int $id): JsonResponse
+    {
+        try {
+            $contract = $this->contractService->getContract($id);
+        } catch (PublicExceptionInterface $e) {
+            return $this->handleException($e);
+        }
+
+        $contract = $this->serialize($contract);
+
+        return $this->json($contract);
+    }
+
     #[Route(path: '/', name: 'contract_store', methods: ['POST'])]
     public function createContractAction(Request $request): JsonResponse
     {
