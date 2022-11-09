@@ -30,8 +30,7 @@ class ContractServiceTest extends TestCase
     {
         $contractDto = (new ContractDto())
             ->setId(10)
-            // ->setName(uuid_create());
-            ->setName('test')
+            ->setName(uuid_create())
             ->setNumber('564646')
             ->setStartDate((new \DateTimeImmutable())->setTimestamp(123456789))
             ->setFinishDate((new \DateTimeImmutable())->setTimestamp(123456789));
@@ -45,7 +44,7 @@ class ContractServiceTest extends TestCase
         /** @var ContractDto $contractNew */
         $contractNew = $contractService->testTest($contractDto);
 
-        $this->assertEquals($contractNew->name, $contractDto->name);
+        $this->assertEquals($contractNew->name, 'broken test');
         $this->assertEquals($contractNew->id, $contractDto->id);
         $this->assertEquals($contractNew->number, $contractDto->number);
         $this->assertEquals($contractNew->startDate, $contractDto->startDate);
