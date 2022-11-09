@@ -124,7 +124,7 @@ class ContractService extends BaseService implements ContractServiceInterface
      *
      * @throws NotFoundException
      */
-    private function getContractById(int $id): Contract
+    private function getContractById(int $id): ?Contract
     {
         $contract = $this->contractRepository->find($id);
 
