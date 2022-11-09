@@ -11,8 +11,6 @@ interface ContractControllerInterface
 {
     public function getContractsAction(Request $request): JsonResponse;
 
-    public function getContractAction(int $id): JsonResponse;
-
     public function createContractAction(Request $request): JsonResponse;
 
     public function updateContractAction(Request $request, int $id): JsonResponse;
